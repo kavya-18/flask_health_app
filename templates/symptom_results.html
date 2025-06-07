@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Guidance</title>
+</head>
+<body>
+    <h2>What Your Body Might Be Saying</h2>
+    {% if results %}
+        {% for symptom, info in results.items() %}
+            <h3>{{ symptom.capitalize() }}</h3>
+            <p><strong>Possible reason:</strong> {{ info.meaning }}</p>
+            <ul>
+                {% for tip in info.tips %}
+                    <li>{{ tip }}</li>
+                {% endfor %}
+            </ul>
+            <p style="color:red;"><strong>When to see a doctor:</strong> {{ info.red_flag }}</p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No symptoms selected.</p>
+    {% endif %}
+</body>
+</html>
