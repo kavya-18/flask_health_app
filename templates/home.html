@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>👋 Welcome to Your Health App</h1>
+  <form method="post" class="mx-auto w-75">
+    <div class="mb-4 text-start">
+      <label for="name" class="form-label">📝 Enter your name:</label>
+      <input type="text" class="form-control" name="name" id="name" required autofocus />
+    </div>
+    <button type="submit" class="btn btn-primary">Let's Start 🚀</button>
+  </form>
+{% endblock %}

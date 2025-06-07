@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>🥑 Your Nutrition Plan, {{ name }}</h1>
+  <div class="text-start fs-5">
+    <p>🔥 Calories per day: <strong>{{ calories }} kcal</strong></p>
+    <ul>
+      <li>🍗 Protein: <strong>{{ nutrition['Protein'] }}</strong></li>
+      <li>🌾 Fiber: <strong>{{ nutrition['Fiber'] }}</strong></li>
+      <li>🥑 Fats: <strong>{{ nutrition['Fats'] }}</strong></li>
+      <li>🍞 Carbs: <strong>{{ nutrition['Carbs'] }}</strong></li>
+      <li>💊 Important Micronutrients:</li>
+      <ul>
+        {% for item in nutrition['Micronutrients'] %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </ul>
+  </div>
+  <a href="{{ url_for('home') }}" class="btn btn-primary mt-4 w-100">Start Over 🔄</a>
+{% endblock %}

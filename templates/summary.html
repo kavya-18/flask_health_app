@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>✨ Summary for {{ name }}</h1>
+  <div class="mb-4 text-start fs-5">
+    <p>🎉 You are <strong>{{ age[0] }} years, {{ age[1] }} months, and {{ age[2] }} days</strong> old today.</p>
+    <p>⚖️ Your BMI is <strong>{{ bmi }}</strong>.</p>
+    <p>🎯 Your ideal weight is approximately <strong>{{ ideal_weight }} kg</strong>.</p>
+    <p>💡 {{ message }}</p>
+  </div>
+  <a href="{{ url_for('plan') }}" class="btn btn-primary w-100">Check Your Healthy Plan 🥗</a>
+{% endblock %}
