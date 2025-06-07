@@ -4,26 +4,7 @@ from datetime import datetime, date
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
-# Page 1: Name input
-@app.route('/', methods=['GET', 'POST'])
-def home():
-    if request.method == 'POST':
-        session['name'] = request.form['name']
-        return redirect(url_for('details'))
-    return render_template('home.html')
-
-# Page 2: DOB, height, weight
-@app.route('/details', methods=['GET', 'POST'])
-def details():
-    if request.method == 'POST':
-        session['dob'] = request.form['dob']
-        session['height_feet'] = int(request.form['height_feet'])
-        session['height_inch'] = int(request.form['height_inch'])
-        session['weight'] = float(request.form['weight'])
-        return redirect(url_for('summary'))
-    return render_template('details.html', name=session.get('name'))
-
-# Helper functions
+# ---------------- Helper Functions ----------------
 def calculate_age(dob):
     dob_date = datetime.strptime(dob, '%Y-%m-%d').date()
     today = date.today()
@@ -53,7 +34,24 @@ def get_health_message(bmi):
     else:
         return 'You are obese.'
 
-# Page 3: Summary
+# ---------------- Routes ----------------
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        session['name'] = request.form['name']
+        return redirect(url_for('details'))
+    return render_template('home.html')
+
+@app.route('/details', methods=['GET', 'POST'])
+def details():
+    if request.method == 'POST':
+        session['dob'] = request.form['dob']
+        session['height_feet'] = int(request.form['height_feet'])
+        session['height_inch'] = int(request.form['height_inch'])
+        session['weight'] = float(request.form['weight'])
+        return redirect(url_for('summary'))
+    return render_template('details.html', name=session.get('name'))
+
 @app.route('/summary')
 def summary():
     dob = session.get('dob')
@@ -68,7 +66,6 @@ def summary():
     session['ideal_weight'] = ideal_weight
     return render_template('summary.html', name=session['name'], age=age, bmi=bmi, ideal_weight=ideal_weight, message=health_msg)
 
-# Page 4: Nutrition Plan
 @app.route('/plan')
 def plan():
     ideal_weight = session.get('ideal_weight')
@@ -82,5 +79,46 @@ def plan():
     }
     return render_template('plan.html', name=session['name'], calories=calories, nutrition=nutrition)
 
+# ---------------- Symptom Check-In ----------------
+SYMPTOM_GUIDANCE = {
+    "dizziness": {
+        "meaning": "Could be due to low blood sugar, dehydration, or anemia.",
+        "tips": ["Drink water frequently", "Don't skip meals", "Avoid sudden movements"],
+        "red_flag": "Persistent dizziness may need medical attention."
+    },
+    "bloating": {
+        "meaning": "Likely due to poor digestion or food intolerance.",
+        "tips": ["Eat slowly", "Avoid carbonated drinks", "Try peppermint tea"],
+        "red_flag": "Seek help if bloating is chronic or painful."
+    },
+    "pimples": {
+        "meaning": "Can be triggered by hormones, stress, or oily food.",
+        "tips": ["Wash face regularly", "Avoid fried foods", "Stay hydrated"],
+        "red_flag": "Visit dermatologist if painful or cystic acne."
+    },
+    "hair fall": {
+        "meaning": "Could be due to stress, low iron, or hormonal imbalance.",
+        "tips": ["Eat iron-rich foods", "Use mild shampoo", "Reduce heat styling"],
+        "red_flag": "Excessive hair loss may need blood tests."
+    },
+    "gastric problems": {
+        "meaning": "Usually caused by acidity or unhealthy eating habits.",
+        "tips": ["Eat on time", "Limit caffeine/spices", "Try yoga post-meals"],
+        "red_flag": "If pain is sharp or frequent, see a doctor."
+    }
+}
+
+@app.route('/symptom-checkin', methods=['GET', 'POST'])
+def symptom_checkin():
+    if request.method == 'POST':
+        selected = request.form.getlist('symptoms')
+        results = {}
+        for symptom in selected:
+            if symptom in SYMPTOM_GUIDANCE:
+                results[symptom] = SYMPTOM_GUIDANCE[symptom]
+        return render_template('symptom_results.html', results=results)
+    return render_template('symptom_form.html', symptoms=SYMPTOM_GUIDANCE.keys())
+
+# ---------------- Run App ----------------
 if __name__ == '__main__':
     app.run(debug=True)

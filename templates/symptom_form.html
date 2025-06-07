@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Symptom Check-In</title>
+</head>
+<body>
+    <h2>How are you feeling today?</h2>
+    <form method="POST">
+        {% for symptom in symptoms %}
+            <input type="checkbox" id="{{ symptom }}" name="symptoms" value="{{ symptom }}">
+            <label for="{{ symptom }}">{{ symptom.capitalize() }}</label><br>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
