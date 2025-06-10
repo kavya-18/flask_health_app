@@ -1,20 +1,20 @@
-🌿 Health Tracking Flask App
+Health Tracking Flask App
 
 This is a sleek and interactive web application built with Flask that helps users calculate their BMI, determine their ideal weight, and get a customized nutrition plan. It also includes a beautiful UI, emotional connection through personalized messages, and future-ready structure for expansion.
 
-📌 Features
+Features
 
-📝 Collects basic user details (name, DOB, height, weight)
+Collects basic user details (name, DOB, height, weight)
 
-🧠 Calculates Age, BMI, and Ideal Weight
+Calculates Age, BMI, and Ideal Weight
 
-💡 Provides a personalized health message based on BMI
+Provides a personalized health message based on BMI
 
-🥗 Suggests custom nutrition plan (protein, fiber, fats, carbs, micronutrients)
+Suggests custom nutrition plan (protein, fiber, fats, carbs, micronutrients)
 
-🔁 Clean navigation across pages with session-based memory
+Clean navigation across pages with session-based memory
 
-🌈 Styled with Bootstrap 5 and custom CSS for modern UI
+Styled with Bootstrap 5 and custom CSS for modern UI
 
 🛠 Tech Stack
 
@@ -29,7 +29,7 @@ This is a sleek and interactive web application built with Flask that helps user
 | Deployment   | Gunicorn (planned)     | WSGI server for production             |
 | Development  | PyCharm                | IDE for project structuring and logic |
 
-🗂 Project Structure
+Project Structure
 
 ## 🗂 Project Structure
 
@@ -55,7 +55,7 @@ flask_health_app/
 
 
 ```
-## 🚀 How to Run This App Locally
+## How to Run This App Locally
 
 ### 1. Clone the Repository
 ```
